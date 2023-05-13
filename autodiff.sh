@@ -108,6 +108,14 @@ then
     CSV_RENAME_TARGET='student-trivial.out'
     check_for_csv
 
+    # Make sure the program works for the other disk image.
+    python3 ./fsdump.py "$OTHER_IMAGE_PATH" >/dev/null 2>&1
+    if [ "$?" != "0" ]
+    then
+        printf "Program is not running for other test disk image; try running it manually.\n"
+        exit 1
+    fi
+
     python3 ./fsdump.py ./other.img 2>/dev/null | sort >student-other.out
     if [ "$?" != "0" ]
     then
